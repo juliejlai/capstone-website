@@ -250,7 +250,7 @@ export default class WaveSync extends Visualizer {
     if (!this.backgroundTick) {
       this.backgroundTick = now
     }
-    const { progress } = this.sync.getInterval('beat')
+    // const { progress } = this.sync.getInterval('beat')
     // const volume = this.sync.volume
     // const rad = interpolateBasis([volume * (height / 4), volume * (height / 4)])(progress)
     // const rad = (width > height) ? volume * height / 3 : volume * width / 3
