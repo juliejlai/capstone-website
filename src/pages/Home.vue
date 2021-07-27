@@ -21,7 +21,7 @@
 
 <script>
 import WaveSync from '@/wavesync'
-import { auth } from '@/wavesync/sync'
+
 import { get } from '@/util/network'
 import AppHeader from '@/components/AppHeader.vue'
 
@@ -70,6 +70,16 @@ export default {
   @include position(fixed, 0 0 0 0);
   @include flex;
 
+  html, body, #app {
+  @include size(100%);
+  overflow: hidden;
+  }
+
+  #app {
+  position: relative;
+  z-index: 20;
+  }
+
   &:before {
     content: '';
     background: white;
@@ -90,7 +100,10 @@ export default {
     animation: fade-in 400ms linear forwards;
     animation-delay: 500ms;
   }
+
+  
 }
+
 
 .text {
   position: relative;
