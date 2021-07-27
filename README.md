@@ -30,5 +30,4 @@ npm run serve
 3. Start project using NPM.
 ```bash
 npm run start
-```# capstone-website
-# capstone-website
+```
