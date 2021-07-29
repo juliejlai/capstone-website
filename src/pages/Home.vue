@@ -26,15 +26,16 @@ import { get } from '@/util/network'
 import AppHeader from '@/components/AppHeader.vue'
 
 export default {
+
+  components: {
+    AppHeader
+  },
+  
   data () {
     return {
       loading: false
     }
   }, 
-
-  components: {
-    AppHeader
-  },
 
   methods: {
     async auth () {

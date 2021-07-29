@@ -24,11 +24,11 @@
     }
 
     a:active {
-        color: blue;
+        color: #E4FDE1;
     }
 
     a[tabindex]:focus {
-        color:blue;
+        color:#E4FDE1;
         outline: none;
     }
 
