@@ -260,9 +260,10 @@ button {
   z-index:2;
   display: inline-block;
   text-align: center;
-  left:50%;
+  left:58%;
 
   &:hover { color: black; }
+  &:active { transform: translateX(-50%) translateY(150px) scale(.5); }
 }
 
 img {
