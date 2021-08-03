@@ -24,7 +24,7 @@
       <br>
         <div class="column" >
           <h2> Type to Search a Song: </h2>
-          <input type="text" id="query" v-model="inputValue" class="form-control" placeholder="Find a Song!!" @keyup="searchSongs" autocomplete='off' style = "margin-left: 225px; height: 30px; width: 250px; font-size: 18px"/>
+          <input type="text" id="query" v-model="inputValue" class="form-control" placeholder="Find a Song!!" @keyup="searchSongs" autocomplete='off' style = "height: 30px; width: 250px; font-size: 18px"/>
             <div id='searchbar'>
               <ul style="list-style-type:none" class="dropdown">
                 <li class='dd' v-for="song in tracks.items" :key='song.id' @click='fetchAPIData(song.id)'>
@@ -40,13 +40,14 @@
             "{{res.name}}" by {{res.artists}}
           </li>
 
-          <button v-if='responseAvailable' @click='writePlaylist' style="margin-left: 110px"> Write to playlist! </button>
+          <button v-if='responseAvailable' @click='writePlaylist'> Write to playlist! </button>
           <br><br><br><br>
           <h2 v-if='seePlaylist' 
             class="center pb-3"
             style="
                 font-size: 1.5rem;
                 position: 500px;
+                color: #E4FDE1;
             "> Check your spotify for your new playlist! </h2>
           
         </div>
@@ -99,7 +100,7 @@ export default {
 
   methods: {
     async fetchAPIData(id) {
-      await fetch("http://music-recommender-api.herokuapp.com/song?track_id=" + id, {
+      await fetch("https://music-recommender-api.herokuapp.com/song?track_id=" + id, {
         "method":"GET"
       })
       .then(response => {
@@ -227,7 +228,8 @@ ul {
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
   width: 250px;
-  left: 225px;
+  display: inline-block;
+
 
 }
 
@@ -246,12 +248,18 @@ ul {
   width: 50%;
 }
 
+body {
+  text-align: center;
+}
+
 button {
   @include button(white);
-  @include position(absolute, 290px null null null);
+  @include position(absolute, 290px null null 830px);
   transform: translateX(50%) translateY(150px);
   margin: 50 auto;
   z-index:2;
+  display: inline-block;
+  text-align: center;
 
   &:hover { color: black; }
 }
