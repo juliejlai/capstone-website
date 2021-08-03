@@ -6,36 +6,65 @@
 
 <template>
 
-  <div class="container-fluid cover" style="width: 100%; backdrop-filter: blur(3px) contrast(0.9)">
+<body>
+  <br>
+    <div class="container-fluid cover" style="width: 100%; backdrop-filter: blur(3px) contrast(0.9)">
+      <h1> Your Global Recommendations: </h1>
+      <h2
+            class="center pb-3"
+            style="
+                font-size: 1.5rem;
+                color: white;
+            "
+      >
+            Please allow a couple seconds for the recommended songs to load after you choose a song.
+      </h2>
+      
+      <div class="row">
+      <br>
+        <div class="column" >
+          <h2> Type to Search a Song: </h2>
+          <input type="text" id="query" v-model="inputValue" class="form-control" placeholder="Find a Song!!" @keyup="searchSongs" autocomplete='off' style = "margin-left: 225px; height: 30px; width: 250px; font-size: 18px"/>
+            <div id='searchbar'>
+              <ul style="list-style-type:none" class="dropdown">
+                <li class='dd' v-for="song in tracks.items" :key='song.id' @click='fetchAPIData(song.id)'>
+                  "{{song.name}}" by {{song.artists[0].name}}
+                </li>
+              </ul>
+            </div>
+        </div>
+      
+        <div class="column">
+          <h2> For song ID: {{this.id}} </h2>
+          <li class='rr' v-for='res in result' :key='res.track_id'>
+            "{{res.name}}" by {{res.artists}}
+          </li>
 
+          <button v-if='responseAvailable' @click='writePlaylist' style="margin-left: 110px"> Write to playlist! </button>
+          <br><br><br><br>
+          <h2 v-if='seePlaylist' 
+            class="center pb-3"
+            style="
+                font-size: 1.5rem;
+                position: 500px;
+            "> Check your spotify for your new playlist! </h2>
+          
+        </div>
 
-    <input type="text" id="query" v-model="inputValue" class="form-control" placeholder="Find a Song!!" @keyup="searchSongs" autocomplete='off'/>
-    <div id='searchbar'>
-      <ul style="list-style-type:none" class="dropdown">
-        <li class='dd' v-for="song in tracks.items" :key='song.id' @click='fetchAPIData(song.id)'>
-          "{{song.name}}" by {{song.artists[0].name}}
-        </li>
-      </ul>
-    </div>
-    <h1> Your Global Recommendations: </h1>
-    <h2> For song ID: {{this.id}} </h2>
-    <li class='rr' v-for='res in result' :key='res.track_id'>
-      "{{res.name}}" by {{res.artists}}
-    </li>
+      </div>
 
-    <button v-if='responseAvailable' @click='writePlaylist'> Write to playlist! </button>
-    <h1 v-if='seePlaylist'> Check your spotify for your new playlist! </h1>
-    <div class="pt-5 pb-5 mb-0 text-white">
-      <img
-                        style="
-                            width: auto;
-                            height: 570px;
-                            margin-left: auto;
-                            margin-right: auto;
-                            backdrop-filter: blur(3px) contrast(0.9)"/>
-    </div>
-</div>
+      <div class="pt-5 pb-5 mb-0 text-white">
+          <img
+              style="
+                  width: auto;
+                  height: 400px;
+                  margin-left: auto;
+                  margin-right: auto;
+                  backdrop-filter: blur(3px) contrast(0.9)"/>
+      </div>
 
+  </div>
+</body>
 </template>
 
 <script>
@@ -181,10 +210,14 @@ export default {
 
 h1 {
   color: #FFFFFF;
+  text-align: center;
+  font-size: 80px;
 }
 
 h2 {
   color: gray;
+  text-align: center;
+  font-size: 32px;
 }
 
 ul {
@@ -193,7 +226,8 @@ ul {
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
-
+  width: 250px;
+  left: 225px;
 
 }
 
@@ -203,10 +237,18 @@ ul {
 
 .rr {
   color: #FFFFFF;
+  text-align: center;
+  font-size: 18px;
+}
+
+.column {
+  float: left;
+  width: 50%;
 }
 
 button {
   @include button(white);
+  @include position(absolute, 290px null null null);
   transform: translateX(50%) translateY(150px);
   margin: 50 auto;
   z-index:2;

@@ -24,7 +24,7 @@ router.get('/', (req, res) => {
       res.cookie('SPOTIFY_REFRESH_TOKEN', body.refresh_token)
       res.cookie('SPOTIFY_REFRESH_CODE', code)
       if (process.env.NODE_ENV === 'development') {
-        res.redirect('http://localhost:8081/recommender')
+        res.redirect('http://localhost:8080/recommender')
       } else {
         res.redirect(process.env.PROJECT_ROOT + '/recommender')
       }
