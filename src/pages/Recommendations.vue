@@ -24,7 +24,7 @@
       <br>
         <div class="column" >
           <h2> Type to Search a Song: </h2>
-          <input type="text" id="query" v-model="inputValue" class="form-control" placeholder="Find a Song!!" @keyup="searchSongs" autocomplete='off' style = "height: 30px; width: 250px; font-size: 18px"/>
+          <input type="text" id="query" v-model="inputValue" class="form-control" placeholder="Find a Song!!" @keyup="searchSongs" autocomplete='off' style = "height: 30px; width: 300px; font-size: 18px"/>
             <div id='searchbar'>
               <ul style="list-style-type:none" class="dropdown">
                 <li class='dd' v-for="song in tracks.items" :key='song.id' @click='fetchAPIData(song.id)'>
@@ -40,7 +40,7 @@
             "{{res.name}}" by {{res.artists}}
           </li>
 
-          <button v-if='responseAvailable' @click='writePlaylist'> Write to playlist! </button>
+          <button v-if='responseAvailable' @click='writePlaylist' style="display: block; margin: 0 auto;"> Write to playlist! </button>
           <br><br><br><br>
           <h2 v-if='seePlaylist' 
             class="center pb-3"
@@ -227,7 +227,7 @@ ul {
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
-  width: 250px;
+  width: 300px;
   display: inline-block;
 
 
@@ -254,12 +254,13 @@ body {
 
 button {
   @include button(white);
-  @include position(absolute, 290px null null 830px);
+  @include position(absolute, 290px null null null);
   transform: translateX(50%) translateY(150px);
-  margin: 50 auto;
+  margin: 0 auto;
   z-index:2;
   display: inline-block;
   text-align: center;
+  left:50%;
 
   &:hover { color: black; }
 }
