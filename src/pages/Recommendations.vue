@@ -260,7 +260,7 @@ button {
   z-index:2;
   display: inline-block;
   text-align: center;
-  left:58%;
+  left:55%;
 
   &:hover { color: black; }
   &:active { transform: translateX(-50%) translateY(150px) scale(.5); }
