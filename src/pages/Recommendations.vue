@@ -1,63 +1,48 @@
-<template lang="html">
+<template lang="pug">
+#app
+  app-header
+  router-view
+</template>
 
-<body>
-    <html>
-        <head>
-            <meta
-                name="viewport"
-                content="width=device-width, initial-scale=1"
-            />
-        </head>
+<template>
 
-        <body>
-            <div class="container-fluid cover" style="width: 100%; backdrop-filter: blur(3px) contrast(0.9)">
+  <div class="container-fluid cover" style="width: 100%; backdrop-filter: blur(3px) contrast(0.9)">
 
-                <div id='container'>
-                  <input type="text" id="query" v-model="inputValue" class="form-control" placeholder="Find a Song!!" @keyup="searchSongs" autocomplete='off'/>
-                  <div id='searchbar'>
-                    <ul style="list-style-type:none" class="dropdown">
-                      <li class='dd' v-for="song in tracks.items" :key='song.id' @click='fetchAPIData(song.id)'>
-                        "{{song.name}}" by {{song.artists[0].name}}
-                      </li>
-                    </ul>
-                  </div>
-                  <h1> Your Global Recommendations: </h1>
-                  <h2> For song ID: {{this.id}} </h2>
-                  <li v-for='res in result' :key='res.track_id'>
-                    "{{res.name}}" by {{res.artists}}
-                  </li>
 
-                  <button v-if='responseAvailable' @click='writePlaylist'> Write to playlist! </button>
-                  <h2 v-if='seePlaylist'> Check your spotify for your new playlist! </h2>
-                </div>
+    <input type="text" id="query" v-model="inputValue" class="form-control" placeholder="Find a Song!!" @keyup="searchSongs" autocomplete='off'/>
+    <div id='searchbar'>
+      <ul style="list-style-type:none" class="dropdown">
+        <li class='dd' v-for="song in tracks.items" :key='song.id' @click='fetchAPIData(song.id)'>
+          "{{song.name}}" by {{song.artists[0].name}}
+        </li>
+      </ul>
+    </div>
+    <h1> Your Global Recommendations: </h1>
+    <h2> For song ID: {{this.id}} </h2>
+    <li class='rr' v-for='res in result' :key='res.track_id'>
+      "{{res.name}}" by {{res.artists}}
+    </li>
 
-                <div class="pt-5 pb-5 mb-0 text-white">
-                    <div class="container center">
-                    <img
+    <button v-if='responseAvailable' @click='writePlaylist'> Write to playlist! </button>
+    <h1 v-if='seePlaylist'> Check your spotify for your new playlist! </h1>
+    <div class="pt-5 pb-5 mb-0 text-white">
+      <img
                         style="
                             width: auto;
                             height: 570px;
                             margin-left: auto;
                             margin-right: auto;
-                            backdrop-filter: blur(3px) contrast(0.9)
-                        "
-                    />
-                    </div>
-                </div>
-            </div>
-
-        </body>
-    </html>
-</body>
-
+                            backdrop-filter: blur(3px) contrast(0.9)"/>
+    </div>
+</div>
 
 </template>
-
 
 <script>
 import WaveSync from '@/wavesync'
 import { get } from '../util/network'
 import * as cookies from '../util/cookie'
+import AppHeader from '@/components/AppHeader.vue'
 
 export default {
   props: ['modelValue'],
@@ -86,8 +71,7 @@ export default {
   methods: {
     async fetchAPIData(id) {
       await fetch("http://music-recommender-api.herokuapp.com/song?track_id=" + id, {
-        "method":"GET",
-        "mode":"no-cors"
+        "method":"GET"
       })
       .then(response => {
         if (response.ok) {
@@ -99,13 +83,13 @@ export default {
       .then(response => {
         this.result = response;
         this.responseAvailable = true;
-        console.log(this.result);
         this.id = id;
-      }).then(() => {
+      }).then(getids => {
 
         for (const r in this.result) {
+          var parsed = JSON.parse(JSON.stringify(this.result[r]));
           this.playlist_uri += '%2Cspotify%3Atrack%3A' + this.result[r].track_id;
-        }
+        };
         console.log(this.playlist_uri);
       })
       .catch(err => {
@@ -151,7 +135,7 @@ export default {
           'Accept': 'application/json'
         }}).then(response => {
           this.user_id = response.data.id;
-        }).then(() => {
+        }).then(play => {
           const playlist_info = {"name" : "Audio Recommender Output"}
           return fetch("https://api.spotify.com/v1/users/"+ this.user_id + "/playlists",
             {
@@ -178,21 +162,30 @@ export default {
             });
         }).then(response => {
           return response;
-        }).then(() => {
+        }).then(response => {
             this.seePlaylist = true;
         }).catch(err => {console.log(err);});
       }
 
     },
 
-  mounted () {
-    this.wavesync = new WaveSync({ fixed: true })
-  }
+    mounted () {
+      this.wavesync = new WaveSync({fixed:true})
+    }
 }
 </script>
 
 
+
 <style lang="scss" scoped>
+
+h1 {
+  color: #FFFFFF;
+}
+
+h2 {
+  color: gray;
+}
 
 ul {
   position: relative;
@@ -208,6 +201,10 @@ ul {
   &:hover {color:gray;}
 }
 
+.rr {
+  color: #FFFFFF;
+}
+
 button {
   @include button(white);
   transform: translateX(50%) translateY(150px);
@@ -217,28 +214,11 @@ button {
   &:hover { color: black; }
 }
 
-html {
-    box-sizing: border-box;
-}
-
-*,
-*:before,
-*:after {
-    box-sizing: inherit;
-}
-
-
-.center {
-  text-align: center;
-}
-
 img {
   display: block;
   margin-left: auto;
   margin-right: auto;
   width: 10%;
 }
-
-
 
 </style>

@@ -8,6 +8,7 @@
 import Status from '@/components/Status'
 import NowPlaying from '@/components/NowPlaying'
 import WaveSync from '@/wavesync'
+import AppHeader from '@/components/AppHeader.vue'
 
 export default {
   components: { Status, NowPlaying },
