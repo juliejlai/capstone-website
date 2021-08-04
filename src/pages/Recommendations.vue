@@ -263,7 +263,6 @@ button {
   left:55%;
 
   &:hover { color: black; }
-  &:active { transform: translateX(-50%) translateY(150px) scale(.5); }
 }
 
 img {
