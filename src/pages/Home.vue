@@ -8,9 +8,9 @@
 .home(ref="container" :class="{ loading }")
   .text
     h1 
+      i A
       i D
       i F
-      i A
       i J
       i -
       i F
@@ -30,7 +30,7 @@ export default {
   components: {
     AppHeader
   },
-  
+
   data () {
     return {
       loading: false
