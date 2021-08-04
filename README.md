@@ -1,33 +1,16 @@
-# wavesync
-### A Spotify visualizer built with [spotify-viz](https://github.com/zachwinter/spotify-viz) and Vue. 
+# adfj-fm
+### A Spotify global recommender and visualizer (https://adfj-fm.herokuapp.com/)
+### Team members: Angela Gao, Julie Lai, Daphne Yang, Frank Bruni
 
-> Run Locally
-1. Create a new Spotify app in your [Spotify Developer Dashboard](https://developer.spotify.com/dashboard/).
-2. Add `http://localhost:8001/callback` to your app's Redirect URIs. Note your app's `Client ID` and `Client Secret`. 
-3. Create a file named `.env` in the project's root directory with the following values:
+**Problem Statement**
+* Current global top charts provides only a glimpse of the music created in different parts of the world and still is dominated by songs created in the US. 
+By generating global song recommendations geared towards highlighting global talent and multilingual songs, our project seeks to create a more diverse experience to music listeners while also providing a novel and enhanced user experience by generating live, audio-responsive artistic visuals.
 
-```
-CLIENT_ID=YOUR_CLIENT_ID_HERE
-CLIENT_SECRET=YOUR_CLIENT_SECRET_HERE
-REDIRECT_URI=http://localhost:8001/callback
-PROJECT_ROOT=http://localhost:8001
-NODE_ENV=development
-```
-4. Install using NPM.
-```bash
-npm i
-```
-5. Serve project.
-```bash
-npm run serve
-```
-6. Visit `http://localhost:8080` and log in with your Spotify account. 
-7. Play a song in your Spotify client of choice. The visualizer will take a moment to sync before initializing.
+**Recommender System**
+* for the sake of our MVP, song recommender limited to Japanese songs, using Japan-related playlists on Spotify
+* our system uses KMeans to group together similar songs using audio track features as the feature inputs
+* Recommendation Similarity Metric used to test how well the model is doing. This metric measures cosine similarity between the input songs, output songs, and a cross between them
 
-> Build & Serve (Production)
-1. Follow steps `1` through `4` above.
-2. In your `.env` file, set `NODE_ENV` to `production`. 
-3. Start project using NPM.
-```bash
-npm run start
-```
+**Visualizer**
+* Realized Using Vue.js and the Spotify Web API + Web Playback SDK
+* built off of https://github.com/zachwinter/wavesync as a template
